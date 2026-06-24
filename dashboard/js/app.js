@@ -126,51 +126,25 @@ function drawLegend() {
 
 function draw() {
   g.selectAll("*").remove();
+  if (simulation) {
+    simulation.stop();
+    simulation = null;
+  }
   const { width, height } = svg.node().getBoundingClientRect();
 
-  // fresh copies so D3 can mutate x/y
+  // fresh copies so we can attach computed x/y
   const nodes = model.nodes.map((d) => ({ ...d }));
   const links = model.links.map((d) => ({ ...d }));
 
-  // ---- layered top→bottom DAG layout ----
-  const ranks = computeRanks(nodes, links);
-  const maxRank = Math.max(0, ...nodes.map((n) => ranks.get(n.id)));
-  const topPad = 70;
-  const bottomPad = 50;
-  const usableH = Math.max(height - topPad - bottomPad, 200);
-  const rowH = maxRank > 0 ? usableH / maxRank : 0;
+  // ---- deterministic layered (Sugiyama-style) top→bottom DAG layout ----
+  layoutDag(nodes, links, width, height);
 
-  // Group nodes by rank to spread them evenly across the width.
-  const byRank = d3.group(nodes, (n) => ranks.get(n.id));
-  byRank.forEach((rowNodes, r) => {
-    const y = topPad + r * rowH;
-    const n = rowNodes.length;
-    rowNodes.forEach((node, i) => {
-      // even horizontal spacing, centered
-      node.targetX = ((i + 1) / (n + 1)) * width;
-      node.targetY = y;
-      node.rank = r;
-      // seed positions so the sim converges fast & stable
-      node.x = node.targetX;
-      node.y = y;
-    });
+  // resolve link endpoints to node objects (so highlight code can read .x/.y)
+  const byId = new Map(nodes.map((n) => [n.id, n]));
+  links.forEach((l) => {
+    l.source = byId.get(typeof l.source === "object" ? l.source.id : l.source);
+    l.target = byId.get(typeof l.target === "object" ? l.target.id : l.target);
   });
-
-  // Force sim: Y is locked to the rank row; X relaxes to reduce edge crossings
-  // and node overlap while staying near the evenly-spaced target.
-  simulation = d3
-    .forceSimulation(nodes)
-    .force(
-      "link",
-      d3
-        .forceLink(links)
-        .id((d) => d.id)
-        .distance(rowH || 120)
-        .strength(0.15)
-    )
-    .force("xTarget", d3.forceX((d) => d.targetX).strength(0.25))
-    .force("collide", d3.forceCollide().radius((d) => nodeRadius(d) + 26))
-    .force("yRow", d3.forceY((d) => d.targetY).strength(1));
 
   const link = g
     .append("g")
@@ -182,6 +156,7 @@ function draw() {
     .attr("stroke", (d) => EDGE_COLORS[d.kind] || EDGE_COLORS.other)
     .attr("stroke-width", 1.8)
     .attr("marker-end", (d) => `url(#arrow-${d.kind})`)
+    .attr("d", linkPath)
     .on("click", (e, d) => {
       e.stopPropagation();
       selectEdge(d);
@@ -193,7 +168,9 @@ function draw() {
     .data(links)
     .join("text")
     .attr("class", "link-label")
-    .text((d) => d.label);
+    .text((d) => d.label)
+    .attr("x", (d) => (d.source.x + d.target.x) / 2)
+    .attr("y", (d) => (d.source.y + d.target.y) / 2 - 3);
 
   const node = g
     .append("g")
@@ -201,7 +178,8 @@ function draw() {
     .data(nodes)
     .join("g")
     .attr("class", "node")
-    .call(drag(simulation))
+    .attr("transform", (d) => `translate(${d.x},${d.y})`)
+    .call(dagDrag())
     .on("click", (e, d) => {
       e.stopPropagation();
       selectNode(d);
@@ -217,12 +195,21 @@ function draw() {
     .attr("class", "node-label")
     .attr("text-anchor", "middle")
     .attr("y", (d) => nodeRadius(d) + 14)
-    .text((d) => truncate(d.label, 30));
+    .text((d) => truncate(d.label, 22))
+    .append("title")
+    .text((d) => d.label);
 
   node.append("title").text((d) => `${d.type}\n${d.label}`);
 
   // click empty space clears selection
   svg.on("click", clearSelection);
+
+  // store selections for highlight + redraw on drag
+  draw._link = link;
+  draw._linkLabel = linkLabel;
+  draw._node = node;
+  draw._nodes = nodes;
+  draw._links = links;
 
   // Vertical cubic path between source (bottom) and target (top).
   function linkPath(d) {
@@ -233,21 +220,87 @@ function draw() {
     const my = (y1 + y2) / 2;
     return `M${x1},${y1} C${x1},${my} ${x2},${my} ${x2},${y2}`;
   }
+  draw._linkPath = linkPath;
+}
 
-  simulation.on("tick", () => {
-    link.attr("d", linkPath);
-    linkLabel
-      .attr("x", (d) => (d.source.x + d.target.x) / 2)
-      .attr("y", (d) => (d.source.y + d.target.y) / 2 - 3);
-    node.attr("transform", (d) => `translate(${d.x},${d.y})`);
+/**
+ * Deterministic layered DAG layout (Sugiyama-style), top→bottom:
+ *   1. Rank nodes by longest path from a source (topological).
+ *   2. Order nodes within each rank to reduce edge crossings (barycenter sweeps).
+ *   3. Assign fixed x (column) / y (rank row) coordinates. No physics.
+ * Mutates each node with .x, .y, .rank.
+ */
+function layoutDag(nodes, links, width, height) {
+  const id = (x) => (typeof x === "object" ? x.id : x);
+  const rank = computeRanks(nodes, links);
+  nodes.forEach((n) => (n.rank = rank.get(n.id)));
+
+  // adjacency for barycenter ordering
+  const inAdj = new Map(nodes.map((n) => [n.id, []]));
+  const outAdj = new Map(nodes.map((n) => [n.id, []]));
+  links.forEach((l) => {
+    const s = id(l.source),
+      t = id(l.target);
+    if (outAdj.has(s)) outAdj.get(s).push(t);
+    if (inAdj.has(t)) inAdj.get(t).push(s);
   });
 
-  // store selections for highlight
-  draw._link = link;
-  draw._linkLabel = linkLabel;
-  draw._node = node;
-  draw._nodes = nodes;
-  draw._links = links;
+  const maxRank = Math.max(0, ...nodes.map((n) => n.rank));
+  // rows[r] = ordered array of node ids in that rank
+  const rows = [];
+  for (let r = 0; r <= maxRank; r++) rows[r] = [];
+  // initial order = input order (stable)
+  nodes.forEach((n) => rows[n.rank].push(n.id));
+
+  // position index within a row, looked up during sweeps
+  const pos = new Map();
+  const setPos = () =>
+    rows.forEach((row) => row.forEach((nid, i) => pos.set(nid, i)));
+  setPos();
+
+  const barycenter = (nid, adj) => {
+    const neigh = adj.get(nid) || [];
+    if (!neigh.length) return pos.get(nid); // keep current if no neighbors
+    return d3.mean(neigh, (m) => pos.get(m));
+  };
+
+  // a few down/up sweeps to settle ordering deterministically
+  for (let sweep = 0; sweep < 8; sweep++) {
+    const downward = sweep % 2 === 0;
+    if (downward) {
+      for (let r = 1; r <= maxRank; r++) {
+        rows[r].sort((a, b) => barycenter(a, inAdj) - barycenter(b, inAdj));
+      }
+    } else {
+      for (let r = maxRank - 1; r >= 0; r--) {
+        rows[r].sort((a, b) => barycenter(a, outAdj) - barycenter(b, outAdj));
+      }
+    }
+    setPos();
+  }
+
+  // ---- coordinate assignment ----
+  const topPad = 72;
+  const bottomPad = 56;
+  const sidePad = 60;
+  const usableH = Math.max(height - topPad - bottomPad, 200);
+  const rowH = maxRank > 0 ? usableH / maxRank : 0;
+  const widest = Math.max(1, ...rows.map((r) => r.length));
+  const colW = (width - 2 * sidePad) / Math.max(1, widest);
+
+  const byId = new Map(nodes.map((n) => [n.id, n]));
+  rows.forEach((row, r) => {
+    const y = topPad + r * rowH;
+    const n = row.length;
+    // center each row within the usable width
+    const rowWidth = n * colW;
+    const startX = (width - rowWidth) / 2 + colW / 2;
+    row.forEach((nid, i) => {
+      const node = byId.get(nid);
+      node.x = startX + i * colW;
+      node.y = y;
+    });
+  });
 }
 
 /**
@@ -286,22 +339,32 @@ function computeRanks(nodes, links) {
   return rank;
 }
 
-function drag(sim) {
+/**
+ * Drag that simply repositions a single node (no physics); redraws the
+ * incident edges live so the static DAG stays consistent.
+ */
+function dagDrag() {
   return d3
     .drag()
     .on("start", (e, d) => {
-      if (!e.active) sim.alphaTarget(0.3).restart();
-      d.fx = d.x;
-      d.fy = d.y;
+      d3.select(e.sourceEvent.target.closest("g.node")).raise();
     })
     .on("drag", (e, d) => {
-      d.fx = e.x;
-      d.fy = e.y;
-    })
-    .on("end", (e, d) => {
-      if (!e.active) sim.alphaTarget(0);
-      d.fx = null;
-      d.fy = null;
+      d.x = e.x;
+      d.y = e.y;
+      d3.select(e.sourceEvent.target.closest("g.node")).attr(
+        "transform",
+        `translate(${d.x},${d.y})`
+      );
+      // update incident edges
+      draw._link.filter((l) => l.source === d || l.target === d).attr(
+        "d",
+        draw._linkPath
+      );
+      draw._linkLabel
+        .filter((l) => l.source === d || l.target === d)
+        .attr("x", (l) => (l.source.x + l.target.x) / 2)
+        .attr("y", (l) => (l.source.y + l.target.y) / 2 - 3);
     });
 }
 
@@ -531,7 +594,7 @@ els.fileInput.addEventListener("change", (e) => {
 els.sampleSelect.addEventListener("change", (e) => loadSample(e.target.value));
 els.resetBtn.addEventListener("click", () => {
   svg.transition().duration(400).call(zoomBehavior.transform, d3.zoomIdentity);
-  if (simulation) simulation.alpha(0.6).restart();
+  if (model) draw(); // recompute the deterministic layout
   clearSelection();
 });
 

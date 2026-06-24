@@ -10,10 +10,13 @@ from a CDN). Works as a published static portal.
 
 ## Features
 
-- **Top-to-bottom layered (DAG) layout**: inputs on top, analysis/process steps
-  in the middle, outputs at the bottom — so data flow reads top→down. Each node
-  is ranked by its longest path from a source; edges are drawn as downward
-  curves with arrowheads.
+- **Top-to-bottom layered DAG layout** (deterministic Sugiyama-style, no force
+  simulation): inputs on top, analysis/process steps in the middle, outputs at
+  the bottom — so data flow reads strictly top→down. Nodes are **topologically
+  ranked** (longest path from a source) into aligned rows, then **ordered within
+  each row by barycenter sweeps** to reduce edge crossings, and given fixed x/y
+  coordinates. Edges are downward curves with arrowheads. Dragging a node repins
+  it without disturbing the layout.
 - **Color-coded nodes** by kind (file / analysis / geneset) and **directional,
   color-coded edges** by relationship (`data input`, `metadata input`,
   `data output`).
