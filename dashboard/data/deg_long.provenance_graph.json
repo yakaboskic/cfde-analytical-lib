@@ -1,0 +1,272 @@
+{
+  "deg_long": {
+    "edges": [
+      {
+        "description": "GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_reads.gct.gz is a data input to analysis:gtex_aging_signatures:dc9ff97a-2f18-5cfd-902f-788ac5f3339e.",
+        "id": "file:expression_gct:fc6bee60-dd04-514b-b6a9-77f28bee9f67_to_analysis:gtex_aging_signatures:dc9ff97a-2f18-5cfd-902f-788ac5f3339e",
+        "label": "data input",
+        "source": "file:expression_gct:fc6bee60-dd04-514b-b6a9-77f28bee9f67",
+        "target": "analysis:gtex_aging_signatures:dc9ff97a-2f18-5cfd-902f-788ac5f3339e"
+      },
+      {
+        "description": "GTEx_Analysis_v8_Annotations_SampleAttributesDS.txt is a metadata input to analysis:gtex_aging_signatures:dc9ff97a-2f18-5cfd-902f-788ac5f3339e.",
+        "id": "file:sample_attributes_tsv:fc00db00-3840-5407-b456-1795e2584cfe_to_analysis:gtex_aging_signatures:dc9ff97a-2f18-5cfd-902f-788ac5f3339e",
+        "label": "metadata input",
+        "source": "file:sample_attributes_tsv:fc00db00-3840-5407-b456-1795e2584cfe",
+        "target": "analysis:gtex_aging_signatures:dc9ff97a-2f18-5cfd-902f-788ac5f3339e"
+      },
+      {
+        "description": "GTEx_Analysis_v8_Annotations_SubjectPhenotypesDS.txt is a metadata input to analysis:gtex_aging_signatures:dc9ff97a-2f18-5cfd-902f-788ac5f3339e.",
+        "id": "file:subject_phenotypes_tsv:2053b5cd-a8b0-5a0a-b1d0-13c28460dc62_to_analysis:gtex_aging_signatures:dc9ff97a-2f18-5cfd-902f-788ac5f3339e",
+        "label": "metadata input",
+        "source": "file:subject_phenotypes_tsv:2053b5cd-a8b0-5a0a-b1d0-13c28460dc62",
+        "target": "analysis:gtex_aging_signatures:dc9ff97a-2f18-5cfd-902f-788ac5f3339e"
+      },
+      {
+        "description": "human_gene_info is a data input to analysis:gtex_aging_signatures:dc9ff97a-2f18-5cfd-902f-788ac5f3339e.",
+        "id": "file:human_gene_info:9202e2fa-eafc-5d12-a804-b653631f56f5_to_analysis:gtex_aging_signatures:dc9ff97a-2f18-5cfd-902f-788ac5f3339e",
+        "label": "data input",
+        "source": "file:human_gene_info:9202e2fa-eafc-5d12-a804-b653631f56f5",
+        "target": "analysis:gtex_aging_signatures:dc9ff97a-2f18-5cfd-902f-788ac5f3339e"
+      },
+      {
+        "description": "analysis:gtex_aging_signatures:dc9ff97a-2f18-5cfd-902f-788ac5f3339e produces file:deg_tsv:9d76c929-5f39-5e95-8022-3c4d3b46142c.",
+        "id": "analysis:gtex_aging_signatures:dc9ff97a-2f18-5cfd-902f-788ac5f3339e_to_file:deg_tsv:9d76c929-5f39-5e95-8022-3c4d3b46142c",
+        "label": "data output",
+        "source": "analysis:gtex_aging_signatures:dc9ff97a-2f18-5cfd-902f-788ac5f3339e",
+        "target": "file:deg_tsv:9d76c929-5f39-5e95-8022-3c4d3b46142c"
+      },
+      {
+        "description": "analysis:gtex_aging_signatures:dc9ff97a-2f18-5cfd-902f-788ac5f3339e materializes output artifact comparison_manifest.tsv.",
+        "id": "analysis:gtex_aging_signatures:dc9ff97a-2f18-5cfd-902f-788ac5f3339e_to_file:comparison_manifest:795d2b15-f201-5a99-9843-ef51c5e592c2",
+        "label": "data output",
+        "source": "analysis:gtex_aging_signatures:dc9ff97a-2f18-5cfd-902f-788ac5f3339e",
+        "target": "file:comparison_manifest:795d2b15-f201-5a99-9843-ef51c5e592c2"
+      },
+      {
+        "description": "analysis:gtex_aging_signatures:dc9ff97a-2f18-5cfd-902f-788ac5f3339e materializes output artifact comparison_audit.tsv.",
+        "id": "analysis:gtex_aging_signatures:dc9ff97a-2f18-5cfd-902f-788ac5f3339e_to_file:comparison_audit:0c058bf4-ccf8-5ab2-a6c5-9232b8ea41b5",
+        "label": "data output",
+        "source": "analysis:gtex_aging_signatures:dc9ff97a-2f18-5cfd-902f-788ac5f3339e",
+        "target": "file:comparison_audit:0c058bf4-ccf8-5ab2-a6c5-9232b8ea41b5"
+      },
+      {
+        "description": "analysis:gtex_aging_signatures:dc9ff97a-2f18-5cfd-902f-788ac5f3339e materializes output artifact comparison_selected_samples.tsv.",
+        "id": "analysis:gtex_aging_signatures:dc9ff97a-2f18-5cfd-902f-788ac5f3339e_to_file:comparison_selected_samples:8a8e9398-9fd3-54f3-9496-8d496809d00f",
+        "label": "data output",
+        "source": "analysis:gtex_aging_signatures:dc9ff97a-2f18-5cfd-902f-788ac5f3339e",
+        "target": "file:comparison_selected_samples:8a8e9398-9fd3-54f3-9496-8d496809d00f"
+      },
+      {
+        "description": "analysis:gtex_aging_signatures:dc9ff97a-2f18-5cfd-902f-788ac5f3339e materializes output artifact sample_metadata.tsv.",
+        "id": "analysis:gtex_aging_signatures:dc9ff97a-2f18-5cfd-902f-788ac5f3339e_to_file:sample_metadata:e454bc5a-c0ae-5c5c-acef-0a1351fce247",
+        "label": "data output",
+        "source": "analysis:gtex_aging_signatures:dc9ff97a-2f18-5cfd-902f-788ac5f3339e",
+        "target": "file:sample_metadata:e454bc5a-c0ae-5c5c-acef-0a1351fce247"
+      },
+      {
+        "description": "analysis:gtex_aging_signatures:dc9ff97a-2f18-5cfd-902f-788ac5f3339e materializes output artifact counts_gene_by_sample.tsv.",
+        "id": "analysis:gtex_aging_signatures:dc9ff97a-2f18-5cfd-902f-788ac5f3339e_to_file:counts_tsv:c5249ec9-c283-5366-a515-71081175e51b",
+        "label": "data output",
+        "source": "analysis:gtex_aging_signatures:dc9ff97a-2f18-5cfd-902f-788ac5f3339e",
+        "target": "file:counts_tsv:c5249ec9-c283-5366-a515-71081175e51b"
+      }
+    ],
+    "nodes": [
+      {
+        "c2m2_properties": {
+          "_uuid": "0edd6bb6-12bd-53e0-b469-6bade6ffb316",
+          "filename": "GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_reads.gct.gz",
+          "local_id": "s3://dig-gene-set-data/GTEx/input/GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_reads.gct.gz",
+          "md5": "HW7Jcxikd9f9grpyFDkl7g==",
+          "persistent_id": "bb543de1-3224-5a62-8ed2-319f7825c67f",
+          "size_in_bytes": 917091994
+        },
+        "dcc_url": "s3://dig-gene-set-data/GTEx/input/GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_reads.gct.gz",
+        "description": "File node for GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_reads.gct.gz (role: expression_gct)",
+        "drc_url": "s3://dig-gene-set-data/GTEx/input/GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_reads.gct.gz",
+        "id": "file:expression_gct:fc6bee60-dd04-514b-b6a9-77f28bee9f67",
+        "name": "GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_reads.gct.gz",
+        "type": "File"
+      },
+      {
+        "c2m2_properties": {
+          "_uuid": "6d0b252a-736b-5704-a8c0-ab8bf77906bb",
+          "filename": "GTEx_Analysis_v8_Annotations_SampleAttributesDS.txt",
+          "local_id": "s3://dig-gene-set-data/GTEx/input/GTEx_Analysis_v8_Annotations_SampleAttributesDS.txt",
+          "md5": "OoY7ANsAoKCKXHkA1E6hGQ==",
+          "persistent_id": "2f6ccf7e-9d3c-5d72-81e5-0af936d8f246",
+          "size_in_bytes": 11512258
+        },
+        "dcc_url": "s3://dig-gene-set-data/GTEx/input/GTEx_Analysis_v8_Annotations_SampleAttributesDS.txt",
+        "description": "File node for GTEx_Analysis_v8_Annotations_SampleAttributesDS.txt (role: sample_attributes_tsv)",
+        "drc_url": "s3://dig-gene-set-data/GTEx/input/GTEx_Analysis_v8_Annotations_SampleAttributesDS.txt",
+        "id": "file:sample_attributes_tsv:fc00db00-3840-5407-b456-1795e2584cfe",
+        "name": "GTEx_Analysis_v8_Annotations_SampleAttributesDS.txt",
+        "type": "File"
+      },
+      {
+        "c2m2_properties": {
+          "_uuid": "2aa020c3-f339-56ae-a640-978218bc1371",
+          "filename": "GTEx_Analysis_v8_Annotations_SubjectPhenotypesDS.txt",
+          "local_id": "s3://dig-gene-set-data/GTEx/input/GTEx_Analysis_v8_Annotations_SubjectPhenotypesDS.txt",
+          "md5": "kCl/wxUSkC9EWcdXGA/ldQ==",
+          "persistent_id": "04b316ad-3e20-5da4-ae0f-42ac9607050c",
+          "size_in_bytes": 20271
+        },
+        "dcc_url": "s3://dig-gene-set-data/GTEx/input/GTEx_Analysis_v8_Annotations_SubjectPhenotypesDS.txt",
+        "description": "File node for GTEx_Analysis_v8_Annotations_SubjectPhenotypesDS.txt (role: subject_phenotypes_tsv)",
+        "drc_url": "s3://dig-gene-set-data/GTEx/input/GTEx_Analysis_v8_Annotations_SubjectPhenotypesDS.txt",
+        "id": "file:subject_phenotypes_tsv:2053b5cd-a8b0-5a0a-b1d0-13c28460dc62",
+        "name": "GTEx_Analysis_v8_Annotations_SubjectPhenotypesDS.txt",
+        "type": "File"
+      },
+      {
+        "c2m2_properties": {
+          "_uuid": "d90c5919-caf8-53e4-abe6-71f854bf4301",
+          "filename": "human_gene_info",
+          "local_id": "s3://dig-gene-set-data/GTEx/input/human_gene_info",
+          "md5": "hvzbVLFaJJSRJutxecW6lQ==",
+          "persistent_id": "48b9abef-1545-5e87-9e26-bef6dbd36c09",
+          "size_in_bytes": 34989436
+        },
+        "dcc_url": "s3://dig-gene-set-data/GTEx/input/human_gene_info",
+        "description": "File node for human_gene_info (role: human_gene_info)",
+        "drc_url": "s3://dig-gene-set-data/GTEx/input/human_gene_info",
+        "id": "file:human_gene_info:9202e2fa-eafc-5d12-a804-b653631f56f5",
+        "name": "human_gene_info",
+        "type": "File"
+      },
+      {
+        "analysis": {
+          "command": "python -m geneset_extractors.cli workflows gtex_aging_signatures --expression_gct s3://dig-gene-set-data/GTEx/input/GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_reads.gct.gz --sample_attributes_tsv s3://dig-gene-set-data/GTEx/input/GTEx_Analysis_v8_Annotations_SampleAttributesDS.txt --subject_phenotypes_tsv s3://dig-gene-set-data/GTEx/input/GTEx_Analysis_v8_Annotations_SubjectPhenotypesDS.txt --human_gene_info s3://dig-gene-set-data/GTEx/input/human_gene_info --out_dir s3://dig-gene-set-data/GTEx/genesets/adipose_tissue/models/HZ1/workflow --organism human --genome_build hg38 --rscript_bin /opt/conda/envs/harmonizome/bin/Rscript --tissue_column SMTS --tissue_value 'Adipose Tissue' --tissue_label 'Adipose Tissue' --tissue_id adipose_tissue --reference_age_group 20-29 --comparison_age_groups 30-39,40-49,50-59,60-69,70-79 --random_state 1 --min_samples_per_group 3 --filter_mode none --chunksize 1000",
+          "environment": {
+            "container_image": null,
+            "entrypoint": "geneset-extractors workflows gtex_aging_signatures",
+            "mode": "cli",
+            "module": "geneset_extractors.workflows.gtex_aging_signatures",
+            "repo_url": "https://github.com/flannick/dig-gene-set-extractors",
+            "workspace_template_url": null
+          },
+          "observed_command": null,
+          "parameters": {
+            "filter_mode": "none",
+            "min_samples_per_group": 3,
+            "random_state": 1,
+            "tissue_label": "Adipose Tissue"
+          },
+          "script_url": "https://github.com/flannick/dig-gene-set-extractors",
+          "version": "c40de4c2585d3dace3d3343f0d5fc733cbd55b6a"
+        },
+        "c2m2_properties": {
+          "description": "Analysis step that prepares notebook-style GTEx aging-signature differential expression results and emits deg_long.tsv.",
+          "id": "analysis:gtex_aging_signatures:dc9ff97a-2f18-5cfd-902f-788ac5f3339e",
+          "name": "prepare_deg_long",
+          "synonyms": []
+        },
+        "dcc_url": "https://github.com/flannick/dig-gene-set-extractors",
+        "description": "Analysis step that prepares notebook-style GTEx aging-signature differential expression results and emits deg_long.tsv.",
+        "drc_url": "https://github.com/flannick/dig-gene-set-extractors",
+        "id": "analysis:gtex_aging_signatures:dc9ff97a-2f18-5cfd-902f-788ac5f3339e",
+        "name": "prepare_deg_long",
+        "type": "AnalysisType"
+      },
+      {
+        "c2m2_properties": {
+          "_uuid": "fecba754-d28a-5910-8eda-ad403556f6fa",
+          "filename": "deg_long.tsv",
+          "local_id": "s3://dig-gene-set-data/GTEx/genesets/adipose_tissue/models/HZ1/workflow/deg_long.tsv",
+          "md5": "5WmpYaRYXySsYZ7DOaKfYg==",
+          "persistent_id": "6c4d8f4b-da49-5044-b7fc-456130a789cc",
+          "size_in_bytes": 41329911
+        },
+        "dcc_url": "s3://dig-gene-set-data/GTEx/genesets/adipose_tissue/models/HZ1/workflow/deg_long.tsv",
+        "description": "File node for deg_long.tsv (role: deg_tsv)",
+        "drc_url": "s3://dig-gene-set-data/GTEx/genesets/adipose_tissue/models/HZ1/workflow/deg_long.tsv",
+        "id": "file:deg_tsv:9d76c929-5f39-5e95-8022-3c4d3b46142c",
+        "name": "deg_long.tsv",
+        "type": "File"
+      },
+      {
+        "c2m2_properties": {
+          "_uuid": "881bca66-adb1-550b-923b-0b623d1c4cf0",
+          "filename": "comparison_manifest.tsv",
+          "local_id": "s3://dig-gene-set-data/GTEx/genesets/adipose_tissue/models/HZ1/workflow/comparison_manifest.tsv",
+          "md5": "QDV0FB2tPukAvib0kUwCPw==",
+          "persistent_id": "ef3f86a7-310e-504b-81a8-5c64dbe9c63f",
+          "size_in_bytes": 583
+        },
+        "dcc_url": "s3://dig-gene-set-data/GTEx/genesets/adipose_tissue/models/HZ1/workflow/comparison_manifest.tsv",
+        "description": "File node for comparison_manifest.tsv (role: comparison_manifest)",
+        "drc_url": "s3://dig-gene-set-data/GTEx/genesets/adipose_tissue/models/HZ1/workflow/comparison_manifest.tsv",
+        "id": "file:comparison_manifest:795d2b15-f201-5a99-9843-ef51c5e592c2",
+        "name": "comparison_manifest.tsv",
+        "type": "File"
+      },
+      {
+        "c2m2_properties": {
+          "_uuid": "54183c4e-a7f2-5664-b4be-c7ebf16317dc",
+          "filename": "comparison_audit.tsv",
+          "local_id": "s3://dig-gene-set-data/GTEx/genesets/adipose_tissue/models/HZ1/workflow/comparison_audit.tsv",
+          "md5": "mwvti18x5Z30kUS1QMkytg==",
+          "persistent_id": "5564374e-1eaa-5f5b-9016-6f5f5bc28b58",
+          "size_in_bytes": 588
+        },
+        "dcc_url": "s3://dig-gene-set-data/GTEx/genesets/adipose_tissue/models/HZ1/workflow/comparison_audit.tsv",
+        "description": "File node for comparison_audit.tsv (role: comparison_audit)",
+        "drc_url": "s3://dig-gene-set-data/GTEx/genesets/adipose_tissue/models/HZ1/workflow/comparison_audit.tsv",
+        "id": "file:comparison_audit:0c058bf4-ccf8-5ab2-a6c5-9232b8ea41b5",
+        "name": "comparison_audit.tsv",
+        "type": "File"
+      },
+      {
+        "c2m2_properties": {
+          "_uuid": "323103eb-f938-5dad-b712-53e24da80632",
+          "filename": "comparison_selected_samples.tsv",
+          "local_id": "s3://dig-gene-set-data/GTEx/genesets/adipose_tissue/models/HZ1/workflow/comparison_selected_samples.tsv",
+          "md5": "PpOEQomQyHmrSo2Sy0teOQ==",
+          "persistent_id": "7b2df5d9-741b-5a77-8416-5c976df915fe",
+          "size_in_bytes": 58875
+        },
+        "dcc_url": "s3://dig-gene-set-data/GTEx/genesets/adipose_tissue/models/HZ1/workflow/comparison_selected_samples.tsv",
+        "description": "File node for comparison_selected_samples.tsv (role: comparison_selected_samples)",
+        "drc_url": "s3://dig-gene-set-data/GTEx/genesets/adipose_tissue/models/HZ1/workflow/comparison_selected_samples.tsv",
+        "id": "file:comparison_selected_samples:8a8e9398-9fd3-54f3-9496-8d496809d00f",
+        "name": "comparison_selected_samples.tsv",
+        "type": "File"
+      },
+      {
+        "c2m2_properties": {
+          "_uuid": "c19b9755-3e2a-50f4-be51-25e9cd1f44d9",
+          "filename": "sample_metadata.tsv",
+          "local_id": "s3://dig-gene-set-data/GTEx/genesets/adipose_tissue/models/HZ1/workflow/sample_metadata.tsv",
+          "md5": "C3uDe3H9sJNQk9fg56WMVQ==",
+          "persistent_id": "df8f4758-4b84-5b93-b9cc-74c703ef8f83",
+          "size_in_bytes": 154400
+        },
+        "dcc_url": "s3://dig-gene-set-data/GTEx/genesets/adipose_tissue/models/HZ1/workflow/sample_metadata.tsv",
+        "description": "File node for sample_metadata.tsv (role: sample_metadata)",
+        "drc_url": "s3://dig-gene-set-data/GTEx/genesets/adipose_tissue/models/HZ1/workflow/sample_metadata.tsv",
+        "id": "file:sample_metadata:e454bc5a-c0ae-5c5c-acef-0a1351fce247",
+        "name": "sample_metadata.tsv",
+        "type": "File"
+      },
+      {
+        "c2m2_properties": {
+          "_uuid": "62665bcc-f492-5d84-a78a-0d287b6b7c1e",
+          "filename": "counts_gene_by_sample.tsv",
+          "local_id": "s3://dig-gene-set-data/GTEx/genesets/adipose_tissue/models/HZ1/workflow/counts_gene_by_sample.tsv",
+          "md5": "hVxUmN4SQFKZGTTZ8ZdNVA==",
+          "persistent_id": "3fc09fd5-3c7e-57b0-a136-37173cce4883",
+          "size_in_bytes": 134460193
+        },
+        "dcc_url": "s3://dig-gene-set-data/GTEx/genesets/adipose_tissue/models/HZ1/workflow/counts_gene_by_sample.tsv",
+        "description": "File node for counts_gene_by_sample.tsv (role: counts_tsv)",
+        "drc_url": "s3://dig-gene-set-data/GTEx/genesets/adipose_tissue/models/HZ1/workflow/counts_gene_by_sample.tsv",
+        "id": "file:counts_tsv:c5249ec9-c283-5366-a515-71081175e51b",
+        "name": "counts_gene_by_sample.tsv",
+        "type": "File"
+      }
+    ]
+  }
+}

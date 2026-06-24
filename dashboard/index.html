@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CFDE Provenance Graph Dashboard</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="logo">⛓</span>
+        <div>
+          <h1>Provenance Graph</h1>
+          <p class="sub" id="graph-name">cfde-analytical-lib</p>
+        </div>
+      </div>
+      <div class="controls">
+        <label class="file-btn">
+          Load JSON
+          <input type="file" id="file-input" accept=".json,application/json" hidden />
+        </label>
+        <select id="sample-select" title="Built-in sample graphs">
+          <option value="data/deg_long.provenance_graph.json">
+            sample: deg_long (GTEx adipose / HZ1)
+          </option>
+        </select>
+        <button id="reset-btn" title="Reset zoom & layout">Reset view</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="canvas-wrap">
+        <div id="legend" class="legend"></div>
+        <div id="stats" class="stats"></div>
+        <svg id="graph"></svg>
+        <div id="empty" class="empty hidden">
+          No graph loaded. Choose a sample or load a JSON file.
+        </div>
+      </section>
+
+      <aside class="inspector" id="inspector">
+        <div class="inspector-empty" id="inspector-empty">
+          <h2>Inspector</h2>
+          <p>Click a node or edge to see its full provenance details.</p>
+          <p class="hint">
+            Drag nodes to reposition · scroll to zoom · drag background to pan.
+          </p>
+        </div>
+        <div id="inspector-content" class="hidden"></div>
+      </aside>
+    </main>
+
+    <footer class="statusbar" id="statusbar">Ready.</footer>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="js/schema.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
